@@ -1,12 +1,12 @@
 {
   "name": "apistorm",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Postman-like API client for HTTP, WebSocket, SSE and gRPC with scripting, OAuth2/JWT/HMAC/SigV4, load testing, scheduling, delivery-report tracking, mock servers, CLI and Docker.",
   "type": "module",
   "main": "server/app.js",
   "scripts": {
     "start": "node cli.js serve",
-    "test": "node --test test/",
+    "test": "node --test",
     "cli": "node cli.js"
   },
   "engines": {
