@@ -1,0 +1,23 @@
+# docker compose up -d   ->  http://localhost:7070
+services:
+  apistorm:
+    build: .
+    image: ${APISTORM_IMAGE:-apistorm:latest}
+    container_name: apistorm
+    restart: unless-stopped
+    ports:
+      - "7070:7070"            # web UI + API
+      - "7071:7071"            # callback receiver (/cb/<bin>/...)
+      - "7100-7110:7100-7110"  # extra callback listener ports and mock servers
+    environment:
+      # Protect the UI with a password whenever the port is reachable by others:
+      APISTORM_USER: ${APISTORM_USER:-}
+      APISTORM_PASSWORD: ${APISTORM_PASSWORD:-}
+      TZ: ${TZ:-UTC}             # used for "once" and cron schedules
+      # Scripts run with the server's privileges. Turn them off if untrusted people can reach the UI:
+      APISTORM_SCRIPTS: ${APISTORM_SCRIPTS:-on}
+    volumes:
+      - apistorm-data:/data
+
+volumes:
+  apistorm-data:
